@@ -13,9 +13,13 @@ public class BoardRepository {
     @PersistenceContext
     EntityManager em;
 
-    public void save(Board board) {
+    public Long save(Board board) {
         em.persist(board);
+        return board.getId();
     }
 
+    public Board findById(Long id) {
+        return em.find(Board.class, id);
+    }
 
 }

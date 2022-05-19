@@ -1,21 +1,19 @@
 package hello.selfmadeboard.domain;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -28,7 +26,7 @@ public class Board {
     private String content;
 
     @Builder
-    public Board(Long id, String title, String writer, String content){
+    public Board(Long id, String title, String writer, String content) {
         this.id = id;
         this.title = title;
         this.writer = writer;
