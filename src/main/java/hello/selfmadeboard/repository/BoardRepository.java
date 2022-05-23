@@ -12,7 +12,6 @@ import javax.persistence.PersistenceContext;
 @RequiredArgsConstructor
 public class BoardRepository {
 
-    @PersistenceContext
     private final EntityManager em;
 
     public Long save(Board board) {

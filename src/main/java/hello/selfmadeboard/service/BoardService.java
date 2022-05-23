@@ -6,9 +6,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceContext;
+
 @Service
 @RequiredArgsConstructor
 public class BoardService {
+
 
     private final BoardRepository boardRepository;
 
