@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-
 
     private final BoardRepository boardRepository;
 
@@ -19,6 +19,11 @@ public class BoardService {
     public Long save(Board board) {
         boardRepository.save(board);
         return board.getId();
+    }
+
+    @Transactional
+    public List<Board> findBoards() {
+        return boardRepository.findAll();
     }
 
 }
