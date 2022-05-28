@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -20,6 +21,17 @@ public class BoardController {
         List<Board> boards = boardService.findBoards();
         model.addAttribute("boards", boards);
         return "board/boardList";
+    }
+
+    @GetMapping("/boardForm")
+    public String boardForm(){
+        return "board/boardForm";
+    }
+
+    @PostMapping("/boardForm")
+    public String boardSummit(Board board){
+        boardService.save(board);
+        return "redirect:/";
     }
 
 }

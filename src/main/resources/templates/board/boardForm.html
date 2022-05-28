@@ -61,31 +61,24 @@
 </main>
 
 <div class = "container">
-    <table class="table">
-        <thead>
-        <tr>
-            <th>글 번호</th>
-            <th>제목</th>
-            <th>작성자</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each = "board : ${boardList}">
-            <td th:text="${board.title}"></td>
-            <td th:text="${board.writer}"></td>
-
-        </tr>
-        </tbody>
-
-    </table>
-
-
-
-    <button onclick="location.href='/boardForm'">글쓰기</button>
-
-
-
+    <div class = "row">
+      <div class = "col-sm-12">
+          <form action = "boardForm.html" th:action method = "post">
+              <h3>제목</h3>
+              <div class = "form-group">
+                  <input type="text" class = "form-control" id = "title" name = "title">
+              </div>
+              <h3>내용</h3>
+              <div class = "form-group">
+                  <textarea class = "form-control" row = "5" id = "content"></textarea>
+              </div>
+              <button type = "submit">글쓰기</button>
+          </form>
+      </div>
+    </div>
 </div>
+
+
 <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
