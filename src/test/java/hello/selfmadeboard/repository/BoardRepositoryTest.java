@@ -22,7 +22,7 @@ class BoardRepositoryTest {
     @Test
     @Transactional
     void 글_저장() {
-        Board board = Board.builder().id(1L).title("hello").writer("Lee").content("hi~").build();
+        Board board = Board.builder().title("hello").writer("Lee").content("hi~").build();
 
         Long id = boardRepository.save(board);
 

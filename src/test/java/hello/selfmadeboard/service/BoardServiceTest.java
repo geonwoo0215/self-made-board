@@ -25,7 +25,6 @@ class BoardServiceTest {
     @Transactional
     void save() {
         Board board = Board.builder()
-                .id(2L)
                 .writer("LEE")
                 .title("hi")
                 .content("hello")

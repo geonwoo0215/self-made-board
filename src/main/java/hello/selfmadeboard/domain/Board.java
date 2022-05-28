@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Board {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -25,8 +26,7 @@ public class Board {
     private String content;
 
     @Builder
-    public Board(Long id, String title, String writer, String content) {
-        this.id = id;
+    public Board(String title, String writer, String content) {
         this.title = title;
         this.writer = writer;
         this.content = content;
