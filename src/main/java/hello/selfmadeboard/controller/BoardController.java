@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -32,6 +33,13 @@ public class BoardController {
     public String boardSummit(Board board){
         boardService.save(board);
         return "redirect:/";
+    }
+
+    @GetMapping("/boardContent/{id}")
+    public String boardContent(@PathVariable("id") Long id, Model model) {
+        Board board = boardService.findBoard(id);
+        model.addAttribute("board", board);
+        return "board/boardContent";
     }
 
 }

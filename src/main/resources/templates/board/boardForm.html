@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Headers · Bootstrap v5.1</title>
+    <title>글 작성</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
 
 
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         .bd-placeholder-img {
@@ -33,7 +33,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="headers.css" rel="stylesheet">
+    <link href="/static/css/headers.css" rel="stylesheet">
 </head>
 <body>
 <main>
@@ -74,7 +74,7 @@
               </div>
               <h3>내용</h3>
               <div class = "form-group">
-                  <textarea class = "form-control" row = "5" id = "content"></textarea>
+                  <textarea class = "form-control" id = "content" name = "content"></textarea>
               </div>
               <button type = "submit">글쓰기</button>
           </form>
@@ -83,6 +83,6 @@
 </div>
 
 
-<script src="js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
