@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.88.1">
-    <title>Headers · Bootstrap v5.1</title>
+    <title>게시판 연습</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/headers/">
 
@@ -72,7 +72,7 @@
         <tbody>
         <tr th:each = "board : ${boardList}">
             <td th:text="${board.id}"></td>
-            <td th:text="${board.title}"></td>
+            <td><a th:href="@{'/board/boardContent/' + ${board.title}}"><span th:text="${board.title}"></span></td>
             <td th:text="${board.writer}"></td>
         </tr>
         </tbody>
