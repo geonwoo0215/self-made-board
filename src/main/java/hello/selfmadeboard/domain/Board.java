@@ -25,6 +25,9 @@ public class Board {
     @Column
     private String content;
 
+    @Column
+    private int view;
+
     @Builder
     public Board(String title, String writer, String content) {
         this.title = title;

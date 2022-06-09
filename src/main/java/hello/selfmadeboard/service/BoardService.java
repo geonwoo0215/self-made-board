@@ -3,6 +3,7 @@ package hello.selfmadeboard.service;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +22,7 @@ public class BoardService {
         return board.getId();
     }
 
+    @Transactional
     public Board findBoard(Long id){
         return boardRepository.findById(id);
     }
@@ -28,6 +30,12 @@ public class BoardService {
     @Transactional
     public List<Board> findBoards() {
         return boardRepository.findAll();
+    }
+
+    @Transactional
+    @Modifying
+    public void updateView(Long id) {
+        boardRepository.updateView(id);
     }
 
 }

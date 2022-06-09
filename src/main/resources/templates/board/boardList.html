@@ -67,6 +67,7 @@
             <th>글 번호</th>
             <th>제목</th>
             <th>작성자</th>
+            <th>조회</th>
         </tr>
         </thead>
         <tbody>
@@ -74,6 +75,7 @@
             <td th:text="${board.id}"></td>
             <td><a th:href="@{/boardContent/{id} (id=${board.id})}"><span th:text="${board.title}"></span></a></td>
             <td th:text="${board.writer}"></td>
+            <td th:text="${board.view}"></td>
         </tr>
         </tbody>
     </table>

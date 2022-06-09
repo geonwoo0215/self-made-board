@@ -38,6 +38,7 @@ public class BoardController {
     @GetMapping("/boardContent/{id}")
     public String boardContent(@PathVariable("id") Long id, Model model) {
         Board board = boardService.findBoard(id);
+        boardService.updateView(id);
         model.addAttribute("board", board);
         return "board/boardContent";
     }
