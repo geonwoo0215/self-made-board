@@ -38,4 +38,9 @@ public class BoardService {
         boardRepository.updateView(id);
     }
 
+    @Transactional
+    public void deleteById(Long id){
+        boardRepository.deleteById(id);
+    }
+
 }

@@ -5,6 +5,7 @@ import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,6 +42,12 @@ public class BoardController {
         boardService.updateView(id);
         model.addAttribute("board", board);
         return "board/boardContent";
+    }
+
+    @DeleteMapping("/boardContent/{id}")
+    public String boardDelete(@PathVariable("id") Long id){
+        boardService.deleteById(id);
+        return "redirect:/";
     }
 
 }

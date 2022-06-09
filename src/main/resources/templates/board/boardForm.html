@@ -63,7 +63,7 @@
 <div class = "container">
     <div class = "row">
       <div class = "col-sm-12">
-          <form action = "boardForm.html" th:action method = "post">
+          <form th:action="@{/boardForm}" method = "post">
               <h3>제목</h3>
               <div class = "form-group">
                   <input type="text" class = "form-control" id = "title" name = "title">
