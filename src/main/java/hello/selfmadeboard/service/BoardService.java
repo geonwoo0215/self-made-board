@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -33,7 +32,6 @@ public class BoardService {
     }
 
     @Transactional
-    @Modifying
     public void updateView(Long id) {
         boardRepository.updateView(id);
     }
@@ -41,6 +39,14 @@ public class BoardService {
     @Transactional
     public void deleteById(Long id){
         boardRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateBoard(Long id, String title, String writer, String content){
+        Board board = boardRepository.findById(id);
+        board.setTitle(title);
+        board.setContent(content);
+        board.setWriter(writer);
     }
 
 }
