@@ -62,10 +62,10 @@ public class BoardController {
     }
 
     @GetMapping("/boardSearch")
-    public String boardSearch(String title, Model model){
+    public String boardSearch(@RequestParam(value="keyword") String title, Model model){
         List<Board> boardList = boardService.searchByTitle(title);
 
-        model.addAttribute("searchList", boardList);
+        model.addAttribute("boardList", boardList);
 
         return "board/boardList";
     }
