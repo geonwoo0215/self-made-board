@@ -3,7 +3,7 @@ package hello.selfmadeboard.service;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +47,12 @@ public class BoardService {
         board.setTitle(title);
         board.setContent(content);
         board.setWriter(writer);
+    }
+
+    @Transactional
+    public List<Board> searchByTitle(String title) {
+        List<Board> boardList = boardRepository.searchByTitle(title);
+        return boardList;
     }
 
 }

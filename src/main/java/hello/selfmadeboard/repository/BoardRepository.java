@@ -2,6 +2,7 @@ package hello.selfmadeboard.repository;
 
 import hello.selfmadeboard.domain.Board;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
@@ -35,5 +36,11 @@ public class BoardRepository {
     public void deleteById(Long id){
         em.createQuery("delete from Board b where b.id = :id").setParameter("id", id).executeUpdate();
     }
+
+    public List<Board> searchByTitle(String title) {
+        return em.createQuery("select b from Board b where b.title like %:title % ").setParameter("title", title)
+                .getResultList();
+    }
+
 
 }

@@ -61,6 +61,13 @@ public class BoardController {
         return "redirect:/";
     }
 
+    @GetMapping("/boardSearch")
+    public String boardSearch(String title, Model model){
+        List<Board> boardList = boardService.searchByTitle(title);
 
+        model.addAttribute("searchList", boardList);
+
+        return "board/boardList";
+    }
 
 }

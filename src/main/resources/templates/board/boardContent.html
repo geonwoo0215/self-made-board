@@ -68,20 +68,23 @@
         <td th:text="'내용' + ${board.content}"></td>
     </div>
 
-    <button onclick="location.href='/'">뒤로가기</button>
 
+    <div class="col-auto float-end">
 
-    <div class="col-auto">
+<!--        <td>-->
+<!--            <a href="#" th:href="@{/boardContent/{id}/edit (id=${board.id})}" class="btn btn-primary" role="button">수정</a>-->
+<!--        </td>-->
         <form id="delete-form" th:action="@{'/boardContent/' + ${board.id}}" method="post">
-           <input type="hidden" name="_method" value="delete"/>
+            <input type="hidden" name="_method" value="delete"/>
+            <a href="#" th:href="@{/boardContent/{id}/edit (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
             <button id="delete-btn" type="submit" class="btn btn-danger">삭제</button>
+            <a href="#" th:href="@{/}" class="btn btn-dark float-right" role="button">뒤로가기</a>
         </form>
+
+<!--        <td>-->
+<!--            <a href="#" th:href="@{/}" class="btn btn-dark float-right" role="button">뒤로가기</a>-->
+<!--        </td>-->
     </div>
-
-    <td>
-        <a href="#" th:href="@{/boardContent/{id}/edit (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
-    </td>
-
 
 </div>
 
