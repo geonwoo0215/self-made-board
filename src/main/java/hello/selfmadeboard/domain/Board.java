@@ -27,7 +27,8 @@ public class Board {
     private int view;
 
     @Builder
-    public Board(String title, String writer, String content) {
+    public Board(Long id, String title, String writer, String content) {
+        this.id = id;
         this.title = title;
         this.writer = writer;
         this.content = content;

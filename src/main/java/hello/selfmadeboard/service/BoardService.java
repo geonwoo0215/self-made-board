@@ -1,6 +1,7 @@
 package hello.selfmadeboard.service;
 
 import hello.selfmadeboard.domain.Board;
+import hello.selfmadeboard.dto.BoardDto;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,9 +17,9 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long save(Board board) {
-        boardRepository.save(board);
-        return board.getId();
+    public Long save(BoardDto boardDto) {
+        boardRepository.save(boardDto.toEntity());
+        return boardDto.getId();
     }
 
     @Transactional

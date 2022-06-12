@@ -14,24 +14,24 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class BoardServiceTest {
 
-    @Autowired
-    BoardService boardService;
-
-    @Autowired
-    BoardRepository boardRepository;
-
-
-    @Test
-    @Transactional
-    void save() {
-        Board board = Board.builder()
-                .writer("LEE")
-                .title("hi")
-                .content("hello")
-                .build();
-
-        Long id = boardService.save(board);
-
-        Assertions.assertEquals(board,boardRepository.findById(id));
-    }
+//    @Autowired
+//    BoardService boardService;
+//
+//    @Autowired
+//    BoardRepository boardRepository;
+//
+//
+//    @Test
+//    @Transactional
+//    void save() {
+//        Board board = Board.builder()
+//                .writer("LEE")
+//                .title("hi")
+//                .content("hello")
+//                .build();
+//
+//        Long id = boardService.save(board);
+//
+//        Assertions.assertEquals(board,boardRepository.findById(id));
+//    }
 }

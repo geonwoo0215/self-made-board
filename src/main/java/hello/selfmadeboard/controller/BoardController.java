@@ -1,6 +1,7 @@
 package hello.selfmadeboard.controller;
 
 import hello.selfmadeboard.domain.Board;
+import hello.selfmadeboard.dto.BoardDto;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -28,8 +29,8 @@ public class BoardController {
     }
 
     @PostMapping("/boardForm")
-    public String boardSummit(Board board){
-        boardService.save(board);
+    public String boardSummit(BoardDto boardDto){
+        boardService.save(boardDto);
         return "redirect:/";
     }
 
