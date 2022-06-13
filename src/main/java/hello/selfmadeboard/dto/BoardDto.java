@@ -21,16 +21,17 @@ public class BoardDto {
                 .writer(writer)
                 .title(title)
                 .content(content)
+                .view(view)
                 .build();
         return build;
     }
 
     @Builder
-    public BoardDto(Board board) {
-        id = board.getId();
-        title = board.getTitle();
-        writer = board.getWriter();
-        content = board.getContent();
-        view = board.getView();
+    public BoardDto(Long id, String title, String writer, String content, int view) {
+        this.id = id;
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+        this.view = view;
     }
 }

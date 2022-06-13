@@ -18,7 +18,7 @@ public class BoardController {
 
     @GetMapping("/")
     public String boardList(Model model){
-        List<Board> boards = boardService.findBoards();
+        List<BoardDto> boards = boardService.findBoards();
         model.addAttribute("boardList", boards);
         return "board/boardList";
     }
@@ -36,7 +36,7 @@ public class BoardController {
 
     @GetMapping("/boardContent/{id}")
     public String boardContent(@PathVariable("id") Long id, Model model) {
-        Board board = boardService.findBoard(id);
+        BoardDto board = boardService.findBoard(id);
         boardService.updateView(id);
         model.addAttribute("board", board);
         return "board/boardContent";
@@ -50,7 +50,7 @@ public class BoardController {
 
     @GetMapping("/boardContent/{id}/edit")
     public String boardUpdateForm(@PathVariable("id") Long id, Model model){
-        Board board = boardService.findBoard(id);
+        BoardDto board = boardService.findBoard(id);
 
         model.addAttribute("board", board);
         return "board/boardEdit";
@@ -64,7 +64,7 @@ public class BoardController {
 
     @GetMapping("/boardSearch")
     public String boardSearch(@RequestParam(value="keyword") String title, Model model){
-        List<Board> boardList = boardService.searchByTitle(title);
+        List<BoardDto> boardList = boardService.searchByTitle(title);
 
         model.addAttribute("boardList", boardList);
 

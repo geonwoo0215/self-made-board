@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,14 +23,42 @@ public class BoardService {
         return boardDto.getId();
     }
 
+//    @Transactional
+//    public Board findBoard(Long id){
+//        return boardRepository.findById(id);
+//    }
+
     @Transactional
-    public Board findBoard(Long id){
-        return boardRepository.findById(id);
+    public BoardDto findBoard(Long id){
+        Board board = boardRepository.findById(id);
+
+        BoardDto boardDto = BoardDto.builder()
+                .id(board.getId())
+                .writer(board.getWriter())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .view(board.getView())
+                .build();
+        return boardDto;
     }
 
     @Transactional
-    public List<Board> findBoards() {
-        return boardRepository.findAll();
+    public List<BoardDto> findBoards() {
+
+        List<Board> boardList = boardRepository.findAll();
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board board: boardList) {
+            BoardDto boardDto = BoardDto.builder()
+                    .id(board.getId())
+                    .writer(board.getWriter())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .view(board.getView())
+                    .build();
+            boardDtoList.add(boardDto);
+        }
+        return boardDtoList;
     }
 
     @Transactional
@@ -51,9 +80,21 @@ public class BoardService {
     }
 
     @Transactional
-    public List<Board> searchByTitle(String title) {
+    public List<BoardDto> searchByTitle(String title) {
         List<Board> boardList = boardRepository.searchByTitle(title);
-        return boardList;
+        List<BoardDto> boardDtoList = new ArrayList<>();
+
+        for (Board board: boardList) {
+            BoardDto boardDto = BoardDto.builder()
+                    .id(board.getId())
+                    .writer(board.getWriter())
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .view(board.getView())
+                    .build();
+            boardDtoList.add(boardDto);
+        }
+        return boardDtoList;
     }
 
 }
