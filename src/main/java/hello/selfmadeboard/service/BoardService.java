@@ -4,7 +4,6 @@ import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.dto.BoardDto;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,11 +21,6 @@ public class BoardService {
         boardRepository.save(boardDto.toEntity());
         return boardDto.getId();
     }
-
-//    @Transactional
-//    public Board findBoard(Long id){
-//        return boardRepository.findById(id);
-//    }
 
     @Transactional
     public BoardDto findBoard(Long id){

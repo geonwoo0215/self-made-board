@@ -2,8 +2,6 @@ package hello.selfmadeboard.repository;
 
 import hello.selfmadeboard.domain.Board;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
