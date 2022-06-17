@@ -17,6 +17,10 @@ public class MemberRepository {
         return member.getId();
     }
 
+    public Member findById(Long id) {
+        return em.find(Member.class, id);
+    }
+
     public void deleteById(Long id){
         em.createQuery("delete from Member m where m.id= :id").executeUpdate();
     }
