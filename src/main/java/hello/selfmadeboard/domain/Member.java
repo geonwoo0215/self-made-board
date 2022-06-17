@@ -11,13 +11,13 @@ import javax.persistence.*;
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false,unique = true)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String nickName;
 
     @Column
