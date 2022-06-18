@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MemberDto {
 
+    private Long id;
+
     private String email;
 
     private String nickName;
@@ -21,6 +23,7 @@ public class MemberDto {
 
     public Member toEntity() {
         Member member = Member.builder()
+                .id(id)
                 .email(email)
                 .nickName(nickName)
                 .passWord(passWord)
@@ -30,7 +33,8 @@ public class MemberDto {
     }
 
     @Builder
-    public MemberDto(String email, String nickName, String passWord, Role role){
+    public MemberDto(Long id, String email, String nickName, String passWord, Role role){
+        this.id = id;
         this.email = email;
         this.nickName = nickName;
         this.passWord = passWord;
