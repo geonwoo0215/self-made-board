@@ -21,6 +21,10 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
+    public Member findByName(String name) {
+        return em.find(Member.class, name);
+    }
+
     public void deleteById(Long id){
         em.createQuery("delete from Member m where m.id= :id").executeUpdate();
     }
