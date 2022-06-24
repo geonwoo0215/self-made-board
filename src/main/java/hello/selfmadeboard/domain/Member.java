@@ -18,20 +18,20 @@ public class Member {
     private String email;
 
     @Column(nullable = false)
-    private String nickName;
+    private String username;
 
     @Column
-    private String passWord;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Builder
-    public Member(Long id, String email, String nickName, String passWord, Role role) {
+    public Member(Long id, String email, String username, String password, Role role) {
         this.id = id;
         this.email = email;
-        this.nickName = nickName;
-        this.passWord = passWord;
+        this.username = username;
+        this.password = password;
         this.role = role;
     }
 }

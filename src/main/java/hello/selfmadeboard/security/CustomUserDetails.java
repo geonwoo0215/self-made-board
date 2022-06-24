@@ -1,6 +1,7 @@
 package hello.selfmadeboard.security;
 
 import hello.selfmadeboard.domain.Member;
+import hello.selfmadeboard.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,12 +26,12 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return member.getPassWord();
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return member.getNickName();
+        return member.getUsername();
     }
 
     @Override
