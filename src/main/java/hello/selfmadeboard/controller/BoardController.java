@@ -51,7 +51,6 @@ public class BoardController {
     @GetMapping("/boardContent/{id}/edit")
     public String boardUpdateForm(@PathVariable("id") Long id, Model model){
         BoardDto board = boardService.findBoard(id);
-
         model.addAttribute("board", board);
         return "board/boardEdit";
     }
@@ -65,9 +64,7 @@ public class BoardController {
     @GetMapping("/boardSearch")
     public String boardSearch(@RequestParam(value="keyword") String title, Model model){
         List<BoardDto> boardList = boardService.searchByTitle(title);
-
         model.addAttribute("boardList", boardList);
-
         return "board/boardList";
     }
 

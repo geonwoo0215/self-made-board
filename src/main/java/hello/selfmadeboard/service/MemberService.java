@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder encoder;
 
 
     @Transactional
     public Long join(MemberDto memberdto) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        memberdto.setPassWord(passwordEncoder.encode(memberdto.getPassWord()));
+        memberdto.setPassword(encoder.encode(memberdto.getPassword()));
         Long id = memberRepository.save(memberdto.toEntity());
         return id;
     }
@@ -33,19 +33,15 @@ public class MemberService implements UserDetailsService {
         Member member =  memberRepository.findById(id);
 
         MemberDto memberDto = MemberDto.builder()
+                .id(member.getId())
                 .email(member.getEmail())
-                .nickName(member.getNickName())
-                .passWord(member.getPassWord())
+                .username(member.getUsername())
+                .password(member.getPassword())
                 .role(member.getRole())
                 .build();
         return memberDto;
     }
 
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByName(username);
 
-        return new CustomUserDetails(member);
-    }
 }

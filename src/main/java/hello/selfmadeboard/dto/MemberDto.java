@@ -15,28 +15,29 @@ public class MemberDto {
 
     private String email;
 
-    private String nickName;
+    private String username;
 
-    private String passWord;
+    private String password;
 
     private Role role;
 
     public Member toEntity() {
         Member member = Member.builder()
+                .id(id)
                 .email(email)
-                .nickName(nickName)
-                .passWord(passWord)
+                .username(username)
+                .password(password)
                 .role(role.USER)
                 .build();
         return member;
     }
 
     @Builder
-    public MemberDto(String email, String nickName, String passWord, Role role){
-
+    public MemberDto(Long id, String email, String username, String password, Role role){
+        this.id = id;
         this.email = email;
-        this.nickName = nickName;
-        this.passWord = passWord;
+        this.username = username;
+        this.password = password;
         this.role = role;
     }
 
