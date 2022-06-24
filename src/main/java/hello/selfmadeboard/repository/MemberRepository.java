@@ -21,8 +21,10 @@ public class MemberRepository {
         return em.find(Member.class, id);
     }
 
-    public Member findByName(String name) {
-        return em.find(Member.class, name);
+    public Member findByName(String username) {
+        return em.createQuery("select m from Member m where m.username = :username", Member.class)
+                .setParameter("username", username)
+                .getSingleResult();
     }
 
     public void deleteById(Long id){
