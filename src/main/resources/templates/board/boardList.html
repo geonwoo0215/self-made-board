@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,8 +54,12 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" class="btn btn-primary">Sign-up</button>
+<!--                <button type="button" class="btn btn-outline-primary me-2">Login</button>-->
+<!--                <a href="#" th:href="@{/loginForm}" class="btn btn-outline-primary me-2" role="button">Login</a>-->
+<!--                <button type="button" class="btn btn-primary">Sign-up</button>-->
+                <a href="#" th:href="@{/createAccountForm}" class="btn btn-outline-primary me-2" role="button">Sign-up</a>
+                <a class="nav-link" sec:authorize="isAnonymous()"  th:href="@{/loginForm}">로그인</a>
+                <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
             </div>
         </header>
     </div>
