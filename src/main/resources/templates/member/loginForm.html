@@ -74,16 +74,16 @@
 
 <body class="text-center">
 <main class="form-signin w-100 m-auto">
-    <form th:action="@{/loginForm}"  method = "post">
+    <form action="loginForm"  method = "post">
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating">
-            <input type="email" class="form-control" id = "email" name = "email" placeholder="name@example.com">
-            <label th:for="email">Email address</label>
+            <input type="username" class="form-control" id = "username" name = "username" placeholder="username">
+            <label th:for="username">User name</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id = "passWord" name = "passWord" placeholder="Password">
-            <label th:for="passWord">Password</label>
+            <input type="password" class="form-control" id = "password" name = "password" placeholder="password">
+            <label th:for="password">Password</label>
         </div>
 
         <div class="checkbox mb-3">
