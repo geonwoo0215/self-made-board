@@ -59,7 +59,7 @@
 <!--                <button type="button" class="btn btn-primary">Sign-up</button>-->
                 <a href="#" th:href="@{/createAccountForm}" class="btn btn-outline-primary me-2" role="button">Sign-up</a>
                 <a class="nav-link" sec:authorize="isAnonymous()"  th:href="@{/loginForm}">로그인</a>
-                <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
+                <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
             </div>
         </header>
     </div>
