@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
 
@@ -27,8 +26,7 @@ public class Board {
     private int view;
 
     @Builder
-    public Board(Long id, String title, String writer, String content, int view) {
-        this.id = id;
+    public Board(String title, String writer, String content, int view) {
         this.title = title;
         this.writer = writer;
         this.content = content;
