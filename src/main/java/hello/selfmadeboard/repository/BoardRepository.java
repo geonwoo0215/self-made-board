@@ -30,7 +30,7 @@ public class BoardRepository {
     }
 
     public void deleteById(Long id){
-        em.createQuery("delete from Board b where b.id = :id").setParameter("id", id).executeUpdate();
+        em.remove(findById(id));
     }
 
     public List<Board> searchByTitle(String title) {
