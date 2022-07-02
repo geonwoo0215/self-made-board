@@ -18,11 +18,10 @@ public class BoardService {
 
     @Transactional
     public Long save(BoardDto boardDto) {
-        boardRepository.save(boardDto.toEntity());
-        return boardDto.getId();
+        Long id = boardRepository.save(boardDto.toEntity());
+        return id;
     }
 
-    @Transactional
     public BoardDto findBoard(Long id){
         Board board = boardRepository.findById(id);
 
@@ -36,7 +35,6 @@ public class BoardService {
         return boardDto;
     }
 
-    @Transactional
     public List<BoardDto> findBoards() {
 
         List<Board> boardList = boardRepository.findAll();
@@ -56,10 +54,10 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateView(Long id) {
-        boardRepository.updateView(id);
+    public void updateView(Long id){
+        Board board = boardRepository.findById(id);
+        board.updateView();
     }
-
     @Transactional
     public void deleteById(Long id){
         boardRepository.deleteById(id);
@@ -68,9 +66,9 @@ public class BoardService {
     @Transactional
     public void updateBoard(Long id, String title, String writer, String content){
         Board board = boardRepository.findById(id);
-        board.setTitle(title);
-        board.setContent(content);
-        board.setWriter(writer);
+//        board.setTitle(title);
+//        board.setContent(content);
+//        board.setWriter(writer);
     }
 
     @Transactional
