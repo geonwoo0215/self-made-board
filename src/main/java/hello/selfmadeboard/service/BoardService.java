@@ -66,9 +66,7 @@ public class BoardService {
     @Transactional
     public void updateBoard(Long id, String title, String writer, String content){
         Board board = boardRepository.findById(id);
-//        board.setTitle(title);
-//        board.setContent(content);
-//        board.setWriter(writer);
+        board.update(title,writer,content);
     }
 
     @Transactional

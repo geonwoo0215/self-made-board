@@ -33,6 +33,12 @@ public class Board {
         this.view = 0;
     }
 
+    public void update(String title, String writer, String content){
+        this.title = title;
+        this.writer = writer;
+        this.content = content;
+    }
+
     public void updateView(){
         this.view += 1;
     }
