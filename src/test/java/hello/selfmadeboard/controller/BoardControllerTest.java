@@ -1,5 +1,6 @@
 package hello.selfmadeboard.controller;
 
+import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.service.BoardService;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -48,6 +49,71 @@ class BoardControllerTest {
                         .param("writer","lee")
                         .param("content","hello"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+    }
+
+    @Test
+    void 게시글_출력() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("boardList"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void 게시글_수정_폼() throws Exception {
+        Board board = Board.builder()
+                .title("hello")
+                .writer("lee")
+                .content("hi")
+                .build();
+        boardService.save(board);
+        mockMvc.perform(MockMvcRequestBuilders.get("/boardContent/1/edit"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    void 게시글_수정() throws Exception{
+        Board board = Board.builder()
+                .title("hello")
+                .writer("lee")
+                .content("hi")
+                .build();
+        boardService.save(board);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/boardContent/1/edit")
+                        .param("title", "hello2")
+                        .param("writer", "kim")
+                        .param("content", "hi2"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+
+    }
+
+    @Test
+    void 게시글_삭제() throws Exception{
+        Board board = Board.builder()
+                .title("hello")
+                .writer("lee")
+                .content("hi")
+                .build();
+        boardService.save(board);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/boardContent/1"))
+                .andExpect(MockMvcResultMatchers.status().is3xxRedirection());
+    }
+
+    @Test
+    void 게시글_검색() throws Exception{
+        Board board = Board.builder()
+                .title("hello")
+                .writer("lee")
+                .content("hi")
+                .build();
+        boardService.save(board);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/boardSearch")
+                        .param("keyword","hello"))
+                .andExpect(MockMvcResultMatchers.model().attributeExists("boardList"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
     }
 
 }
