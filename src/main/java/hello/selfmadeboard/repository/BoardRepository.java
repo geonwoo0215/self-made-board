@@ -34,7 +34,7 @@ public class BoardRepository {
     }
 
     public List<Board> searchByTitle(String title) {
-        return em.createQuery("select b from Board b where b.title like :title ").setParameter("title", title)
+        return em.createQuery("select b from Board b where b.title like :title ").setParameter("title","%"+title+"%")
                 .getResultList();
     }
 
