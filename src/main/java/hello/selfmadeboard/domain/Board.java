@@ -26,10 +26,14 @@ public class Board {
     private int view;
 
     @Builder
-    public Board(String title, String writer, String content, int view) {
+    public Board(String title, String writer, String content) {
         this.title = title;
         this.writer = writer;
         this.content = content;
-        this.view = view;
+        this.view = 0;
+    }
+
+    public void updateView(){
+        this.view += 1;
     }
 }
