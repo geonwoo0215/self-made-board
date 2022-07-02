@@ -9,13 +9,10 @@
     </div>
 </main>
 
-<div  class="col-auto float-end">
-    <form th:action="@{'/boardSearch'}" method="GET">
-        <div>
-            <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
-        </div>
-
-        <button>검색하기</button>
+<div class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+    <form id="search-form" th:action="@{'/boardSearch'}" method="get">
+        <input type="text" name="keyword" placeholder="검색어를 입력해주세요"/>
+        <button id="search-btn" type="submit" class="btn btn-secondary">검색</button>
     </form>
 </div>
 
