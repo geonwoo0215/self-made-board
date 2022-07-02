@@ -7,26 +7,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 
 @SpringBootTest
 class BoardRepositoryTest {
 
     @Autowired
-    private BoardRepository boardRepository;
+    BoardRepository boardRepository;
 
     @Test
     @Transactional
-    void 글_저장() {
-        Board board = Board.builder().title("hello").writer("Lee").content("hi~").build();
+    void 저장(){
 
-        Long id = boardRepository.save(board);
+        //given
+        Board board = Board.builder()
+                .title("Hello")
+                .writer("lee")
+                .content("hi")
+                .build();
 
-        Board saveBoard = boardRepository.findById(id);
+        //when
+        Long saveId = boardRepository.save(board);
 
-        Assertions.assertThat(saveBoard.getId()).isEqualTo(board.getId());
+        //then
+        Assertions.assertThat(board).isEqualTo(boardRepository.findById(saveId));
 
-        Assertions.assertThat(saveBoard).isEqualTo(board);
+    }
 
+    @Test
+    @Transactional
+    void 삭제(){
+
+        //given
+        Board board = Board.builder()
+                .title("Hello")
+                .writer("lee")
+                .content("hi")
+                .build();
+
+        //when
+        Long saveId = boardRepository.save(board);
+        boardRepository.deleteById(saveId);
+
+        //then
+        org.junit.jupiter.api.Assertions.assertNull(boardRepository.findById(saveId));
     }
 }
