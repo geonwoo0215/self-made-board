@@ -12,19 +12,26 @@
 <div class = "container">
     <div class = "row">
         <div class = "col-sm-12">
-            <form th:action="@{/boardForm}"  method = "post">
+            <form th:action="@{/boardForm}" th:object="${boardDto}" method = "post">
+
                 <div class = "form-group">
                     <label th:for="title" th:text="#{board.title}"></label>
-                    <input type="text" id = "title" name = "title" class = "form-control" placeholder="제목을 입력하세요">
+                    <input type="text" id = "title" th:field="*{title}"
+                           th:errorclass="field-error" class = "form-control" placeholder="제목을 입력하세요">
+                    <div class="field-error" th:errors="*{title}">
+                    </div>
                 </div>
+
                 <div class = "form-group">
                     <label th:for="writer" th:text="#{board.writer}"></label>
-                    <input type="text" id = "writer" name = "writer" class = "form-control" placeholder="작성자를 입력하세요">
+                    <input type="text" id = "writer" th:field="*{writer}" class = "form-control" placeholder="작성자를 입력하세요">
                 </div>
+
                 <div class = "form-group">
                     <label th:for="content" th:text="#{board.content}"></label>
-                    <textarea id = "content" name = "content" class = "form-control"></textarea>
+                    <textarea id = "content"  th:field="*{content}" class = "form-control"></textarea>
                 </div>
+
                 <button type = "submit" class="btn btn-primary" th:text="#{button.write}"></button>
             </form>
         </div>
