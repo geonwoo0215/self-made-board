@@ -1,4 +1,4 @@
-package hello.selfmadeboard.dto;
+package hello.selfmadeboard.controller.dto;
 
 import hello.selfmadeboard.domain.Board;
 import lombok.*;
@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardDto {
-
 
     private Long id;
 

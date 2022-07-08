@@ -1,4 +1,4 @@
-package hello.selfmadeboard.dto;
+package hello.selfmadeboard.controller.dto;
 
 import hello.selfmadeboard.domain.Member;
 import hello.selfmadeboard.domain.Role;
