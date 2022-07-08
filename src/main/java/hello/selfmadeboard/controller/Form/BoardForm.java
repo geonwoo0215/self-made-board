@@ -1,4 +1,4 @@
-package hello.selfmadeboard.controller.dto;
+package hello.selfmadeboard.controller.Form;
 
 import hello.selfmadeboard.domain.Board;
 import lombok.*;

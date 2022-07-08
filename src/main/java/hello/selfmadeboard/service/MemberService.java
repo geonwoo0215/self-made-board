@@ -1,7 +1,7 @@
 package hello.selfmadeboard.service;
 
 import hello.selfmadeboard.domain.Member;
-import hello.selfmadeboard.controller.dto.MemberForm;
+import hello.selfmadeboard.controller.Form.MemberForm;
 import hello.selfmadeboard.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

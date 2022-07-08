@@ -1,6 +1,6 @@
 package hello.selfmadeboard.controller;
 
-import hello.selfmadeboard.controller.dto.BoardForm;
+import hello.selfmadeboard.controller.Form.BoardForm;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,7 @@ public class BoardController {
 
     @GetMapping("/")
     public String boardList(Model model){
-        List<BoardForm> boards = boardService.findBoards().stream().map((b)->b.toForm()).collect(Collectors.toCollection(ArrayList::new));
+        List<BoardForm> boards = boardService.findBoards().stream().map((b)->b.toForm()).collect(Collectors.toCollection(LinkedList::new));
         model.addAttribute("boardList", boards);
         return "board/boardList";
     }

@@ -1,6 +1,6 @@
 package hello.selfmadeboard.domain;
 
-import hello.selfmadeboard.controller.dto.BoardForm;
+import hello.selfmadeboard.controller.Form.BoardForm;
 import lombok.*;
 
 import javax.persistence.*;

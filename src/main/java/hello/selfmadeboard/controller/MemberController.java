@@ -1,8 +1,8 @@
 package hello.selfmadeboard.controller;
 
 
-import hello.selfmadeboard.controller.dto.LoginForm;
-import hello.selfmadeboard.controller.dto.MemberForm;
+import hello.selfmadeboard.controller.Form.LoginForm;
+import hello.selfmadeboard.controller.Form.MemberForm;
 import hello.selfmadeboard.domain.Member;
 import hello.selfmadeboard.service.MemberService;
 import lombok.RequiredArgsConstructor;
