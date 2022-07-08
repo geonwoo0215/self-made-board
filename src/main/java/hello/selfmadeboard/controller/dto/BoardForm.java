@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoardDto {
+public class BoardForm {
 
     private Long id;
 
@@ -28,7 +28,7 @@ public class BoardDto {
     }
 
     @Builder
-    public BoardDto(Long id, String title, String writer, String content, Integer view) {
+    public BoardForm(Long id, String title, String writer, String content, Integer view) {
         this.id = id;
         this.title = title;
         this.writer = writer;

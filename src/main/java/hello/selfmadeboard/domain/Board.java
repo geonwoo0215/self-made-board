@@ -1,6 +1,6 @@
 package hello.selfmadeboard.domain;
 
-import hello.selfmadeboard.controller.dto.BoardDto;
+import hello.selfmadeboard.controller.dto.BoardForm;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,14 +34,14 @@ public class Board {
         this.view = view;
     }
 
-    public BoardDto toDto(){
-        BoardDto boardDto = BoardDto.builder()
+    public BoardForm toForm(){
+        BoardForm boardForm = BoardForm.builder()
                 .id(id)
                 .title(title)
                 .writer(writer)
                 .content(content)
                 .build();
-        return boardDto;
+        return boardForm;
     }
 
     public void update(String title, String writer, String content){
