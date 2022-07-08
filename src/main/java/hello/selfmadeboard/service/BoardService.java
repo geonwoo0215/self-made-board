@@ -1,7 +1,6 @@
 package hello.selfmadeboard.service;
 
 import hello.selfmadeboard.domain.Board;
-import hello.selfmadeboard.dto.BoardDto;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,50 +16,19 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long save(BoardDto boardDto) {
-        Long id = boardRepository.save(boardDto.toEntity());
+    public Long save(Board board) {
+        Long id = boardRepository.save(board);
         return id;
     }
 
-    public BoardDto findBoard(Long id){
+    public Board findBoard(Long id){
         Board board = boardRepository.findById(id);
-
-        BoardDto boardDto = BoardDto.builder()
-                .id(board.getId())
-                .writer(board.getWriter())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .view(board.getView())
-                .build();
-        return boardDto;
+        return board;
     }
 
-    public List<BoardDto> findBoards() {
-
+    public List<Board> findBoards() {
         List<Board> boardList = boardRepository.findAll();
-        List<BoardDto> boardDtoList = new ArrayList<>();
-
-        for (Board board: boardList) {
-            BoardDto boardDto = BoardDto.builder()
-                    .id(board.getId())
-                    .writer(board.getWriter())
-                    .title(board.getTitle())
-                    .content(board.getContent())
-                    .view(board.getView())
-                    .build();
-            boardDtoList.add(boardDto);
-        }
-        return boardDtoList;
-    }
-
-    @Transactional
-    public void updateView(Long id){
-        Board board = boardRepository.findById(id);
-        board.updateView();
-    }
-    @Transactional
-    public void deleteById(Long id){
-        boardRepository.deleteById(id);
+        return boardList;
     }
 
     @Transactional
@@ -70,21 +38,20 @@ public class BoardService {
     }
 
     @Transactional
-    public List<BoardDto> searchByTitle(String title) {
-        List<Board> boardList = boardRepository.searchByTitle(title);
-        List<BoardDto> boardDtoList = new ArrayList<>();
+    public void updateView(Long id){
+        Board board = boardRepository.findById(id);
+        board.updateView();
+    }
 
-        for (Board board: boardList) {
-            BoardDto boardDto = BoardDto.builder()
-                    .id(board.getId())
-                    .writer(board.getWriter())
-                    .title(board.getTitle())
-                    .content(board.getContent())
-                    .view(board.getView())
-                    .build();
-            boardDtoList.add(boardDto);
-        }
-        return boardDtoList;
+    @Transactional
+    public void deleteById(Long id){
+        boardRepository.deleteById(id);
+    }
+
+
+    public List<Board> searchByTitle(String title) {
+        List<Board> boardList = boardRepository.searchByTitle(title);
+        return boardList;
     }
 
 }

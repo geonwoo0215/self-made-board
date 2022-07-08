@@ -1,7 +1,6 @@
 package hello.selfmadeboard.controller;
 
-import hello.selfmadeboard.domain.Board;
-import hello.selfmadeboard.dto.BoardDto;
+import hello.selfmadeboard.controller.dto.BoardDto;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -10,7 +9,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class BoardController {
 
     @GetMapping("/")
     public String boardList(Model model){
-        List<BoardDto> boards = boardService.findBoards();
-        model.addAttribute("boardDto", boards);
+        List<BoardDto> boards = boardService.findBoards().stream().map((b)->b.toDto()).collect(Collectors.toCollection(ArrayList::new));
+        model.addAttribute("boardList", boards);
         return "board/boardList";
     }
 
@@ -38,15 +39,16 @@ public class BoardController {
         if(bindingResult.hasErrors()){
             return "board/boardForm";
         }
-        boardService.save(boardDto);
+
+        boardService.save(boardDto.toEntity());
         return "redirect:/";
     }
 
     @GetMapping("/boardContent/{id}")
     public String boardContent(@PathVariable("id") Long id, Model model) {
-        BoardDto boardDto = boardService.findBoard(id);
+        BoardDto boardDto = boardService.findBoard(id).toDto();
         boardService.updateView(id);
-        model.addAttribute("board", boardDto);
+        model.addAttribute("boardDto", boardDto);
         return "board/boardContent";
     }
 
@@ -58,20 +60,20 @@ public class BoardController {
 
     @GetMapping("/boardContent/{id}/edit")
     public String boardUpdateForm(@PathVariable("id") Long id, Model model){
-        BoardDto boardDto = boardService.findBoard(id);
-        model.addAttribute("board", boardDto);
+        BoardDto boardDto = boardService.findBoard(id).toDto();
+        model.addAttribute("boardDto", boardDto);
         return "board/boardEdit";
     }
 
     @PostMapping("/boardContent/{id}/edit")
-    public String boardUpdate(@PathVariable("id") Long id, @ModelAttribute("board") Board board){
-        boardService.updateBoard(id,board.getTitle(),board.getWriter(),board.getContent());
+    public String boardUpdate(@PathVariable("id") Long id, @ModelAttribute("boardDto") BoardDto boardDto){
+        boardService.updateBoard(id,boardDto.getTitle(),boardDto.getWriter(),boardDto.getContent());
         return "redirect:/";
     }
 
     @GetMapping("/boardSearch")
     public String boardSearch(@RequestParam(value="keyword") String title, Model model){
-        List<BoardDto> boardList = boardService.searchByTitle(title);
+        List<BoardDto> boardList = boardService.searchByTitle(title).stream().map((b)->b.toDto()).collect(Collectors.toCollection(ArrayList::new));;
         model.addAttribute("boardList", boardList);
         return "board/boardList";
     }
