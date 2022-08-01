@@ -12,9 +12,4 @@ public class SelfmadeboardApplication {
 		SpringApplication.run(SelfmadeboardApplication.class, args);
 	}
 
-	@Bean
-	public HiddenHttpMethodFilter hiddenHttpMethodFilter(){
-		return new HiddenHttpMethodFilter();
-	}
-
 }
