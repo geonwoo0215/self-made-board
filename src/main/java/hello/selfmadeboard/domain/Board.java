@@ -1,56 +1,32 @@
 package hello.selfmadeboard.domain;
 
-import hello.selfmadeboard.controller.Form.BoardForm;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Board {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
-    @Column
     private String title;
 
-    @Column
-    private String writer;
-
-    @Column
+    @Lob
     private String content;
 
-    @Column
-    private Integer view;
-
     @Builder
-    public Board(String title, String writer, String content, Integer view) {
+    public Board(Long id, String title, String content) {
+        this.id = id;
         this.title = title;
-        this.writer = writer;
-        this.content = content;
-        this.view = view;
-    }
-
-    public BoardForm toForm(){
-        BoardForm boardForm = BoardForm.builder()
-                .id(id)
-                .title(title)
-                .writer(writer)
-                .content(content)
-                .build();
-        return boardForm;
-    }
-
-    public void update(String title, String writer, String content){
-        this.title = title;
-        this.writer = writer;
         this.content = content;
     }
 
-    public void updateView(){
-        this.view += 1;
-    }
 }
