@@ -1,6 +1,7 @@
 package hello.selfmadeboard.controller.form;
 
 
+import hello.selfmadeboard.domain.Board;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,14 @@ public class BoardForm {
     public BoardForm(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public Board toBoard() {
+        Board board = Board.builder()
+                .title(this.title)
+                .content(this.content)
+                .build();
+        return board;
     }
 
 
