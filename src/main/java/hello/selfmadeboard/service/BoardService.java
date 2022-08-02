@@ -14,7 +14,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public void write(BoardForm boardForm) {
-        log.info("저장!");
+        log.info("BoardService : 저장!");
         boardRepository.save(boardForm.toBoard());
     }
 
