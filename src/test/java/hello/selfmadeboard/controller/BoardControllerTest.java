@@ -1,8 +1,8 @@
 package hello.selfmadeboard.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hello.selfmadeboard.controller.form.BoardForm;
 import hello.selfmadeboard.domain.Board;
+import hello.selfmadeboard.controller.form.BoardForm;
 import hello.selfmadeboard.repository.BoardRepository;
 import hello.selfmadeboard.service.BoardService;
 import org.assertj.core.api.Assertions;
@@ -58,6 +58,19 @@ class BoardControllerTest {
         Assertions.assertThat(board.getContent()).isEqualTo("hi! my name is Lee");
     }
 
+    @Test
+    @DisplayName("저장 비정상 요청")
+    void badRequestSave() throws Exception {
+        BoardForm boardForm = BoardForm.builder().content("hi! my name is Lee").build();
+
+        String json = objectMapper.writeValueAsString(boardForm);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/boards")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
 
 
+    }
 }
