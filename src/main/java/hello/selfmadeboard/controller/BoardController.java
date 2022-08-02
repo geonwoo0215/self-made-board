@@ -20,7 +20,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/boards")
-    public void board(@RequestBody @Valid BoardForm boardForm, BindingResult bindingResult) {
+    public void board(@Valid @RequestBody BoardForm boardForm) {
         log.info("boardForm={}", boardForm.toString());
         boardService.write(boardForm);
     }
