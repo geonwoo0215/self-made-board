@@ -4,13 +4,17 @@ package hello.selfmadeboard.controller.form;
 import hello.selfmadeboard.domain.Board;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardForm {
 
+    @NotBlank
     private String title;
 
+    @NotBlank
     private String content;
 
     @Builder
