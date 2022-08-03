@@ -1,5 +1,6 @@
 package hello.selfmadeboard.domain;
 
+import hello.selfmadeboard.controller.form.BoardForm;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,13 @@ public class Board {
         this.id = id;
         this.title = title;
         this.content = content;
+    }
+
+    public BoardForm toBoardForm() {
+        return BoardForm.builder()
+                .title(this.title)
+                .content(this.content)
+                .build();
     }
 
 }
