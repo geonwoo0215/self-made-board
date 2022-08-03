@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 @SpringBootTest
 class BoardServiceTest {
 
@@ -63,6 +65,30 @@ class BoardServiceTest {
         BoardResponseForm findBoard = boardService.read(saveId);
         Assertions.assertThat(findBoard.getTitle()).isEqualTo("hello everyone");
         Assertions.assertThat(findBoard.getContent()).isEqualTo("my name is Lee");
+
+    }
+
+    @Test
+    @DisplayName("전체 글 조회")
+    void test3() {
+
+        //given
+        Board board1 = Board.builder()
+                .title("title1")
+                .content("content1")
+                .build();
+
+        Board board2 = Board.builder()
+                .title("title2")
+                .content("content2")
+                .build();
+
+        Long saveId1 = boardRepository.save(board1).getId();
+        Long saveId2 = boardRepository.save(board2).getId();
+
+        List<BoardResponseForm> boards = boardService.list();
+
+        Assertions.assertThat(boards.size()).isEqualTo(2L);
 
     }
 
