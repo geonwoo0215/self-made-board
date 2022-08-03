@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -26,5 +27,10 @@ public class BoardController {
     public BoardResponseForm get(@PathVariable(name = "boardId") Long id) {
         log.info("boardId={}", id);
         return boardService.read(id);
+    }
+
+    @GetMapping("/board")
+    public List<BoardResponseForm> getList() {
+        return boardService.list();
     }
 }
