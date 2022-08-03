@@ -98,4 +98,28 @@ class BoardControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
+    @Test
+    @DisplayName("전체 글 조회 요청")
+    void test4() throws Exception {
+
+        //given
+        Board board1 = Board.builder()
+                .title("title1")
+                .content("content2")
+                .build();
+        boardRepository.save(board1);
+
+        Board board2 = Board.builder()
+                .title("title1")
+                .content("content2")
+                .build();
+        boardRepository.save(board2);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/board"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+
+    }
+
 }
