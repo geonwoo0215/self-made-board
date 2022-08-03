@@ -15,7 +15,7 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping("/boards")
+    @PostMapping("/board")
     public void post(@Valid @RequestBody BoardForm boardForm) {
         log.info("boardForm={}", boardForm.toString());
         boardService.write(boardForm);

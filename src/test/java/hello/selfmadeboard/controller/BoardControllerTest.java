@@ -40,13 +40,16 @@ class BoardControllerTest {
 
     @Test
     @DisplayName("저장 정상요청")
-    void save() throws Exception {
+    void test1() throws Exception {
 
-        BoardForm boardForm = BoardForm.builder().title("hello everyone").content("hi! my name is Lee").build();
+        BoardForm boardForm = BoardForm.builder()
+                .title("hello everyone")
+                .content("hi! my name is Lee")
+                .build();
 
         String json = objectMapper.writeValueAsString(boardForm);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/boards")
+        mockMvc.perform(MockMvcRequestBuilders.post("/board")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -60,12 +63,14 @@ class BoardControllerTest {
 
     @Test
     @DisplayName("저장 비정상 요청")
-    void badRequestSave() throws Exception {
-        BoardForm boardForm = BoardForm.builder().content("hi! my name is Lee").build();
+    void test2() throws Exception {
+        BoardForm boardForm = BoardForm.builder()
+                .content("hi! my name is Lee")
+                .build();
 
         String json = objectMapper.writeValueAsString(boardForm);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/boards")
+        mockMvc.perform(MockMvcRequestBuilders.post("/board")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest())
@@ -73,4 +78,24 @@ class BoardControllerTest {
 
 
     }
+
+    @Test
+    @DisplayName("글 읽기 정상 요청")
+    void test3() throws Exception {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+
+        Long saveId = boardRepository.save(board).getId();
+
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.get("/board/{boardId}",saveId))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
 }
