@@ -18,5 +18,12 @@ public class BoardService {
         boardRepository.save(boardForm.toBoard());
     }
 
+    public BoardForm read(Long id) {
+        log.info("BoardService : 읽기!");
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("없는 글 입니다.")).toBoardForm();
+
+    }
+
 
 }
