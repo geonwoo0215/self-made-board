@@ -16,10 +16,10 @@ public class ExControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> badRequestHandle(MethodArgumentNotValidException e) {
-        log.error("exception!", e);
-        Map<String, String> errors =new HashMap<>();
+        log.error("잘못 된 입력입니다!", e);
+        Map<String, String> errors = new HashMap<>();
 
-        e.getBindingResult().getAllErrors().forEach(a->errors.put(((FieldError)a).getField(),a.getDefaultMessage()));
+        e.getBindingResult().getAllErrors().forEach(a -> errors.put(((FieldError) a).getField(), a.getDefaultMessage()));
         return errors;
     }
 

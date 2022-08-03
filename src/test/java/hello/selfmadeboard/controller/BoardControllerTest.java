@@ -2,7 +2,7 @@ package hello.selfmadeboard.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.selfmadeboard.domain.Board;
-import hello.selfmadeboard.controller.form.BoardForm;
+import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.repository.BoardRepository;
 import hello.selfmadeboard.service.BoardService;
 import org.assertj.core.api.Assertions;
@@ -42,7 +42,7 @@ class BoardControllerTest {
     @DisplayName("저장 정상요청")
     void test1() throws Exception {
 
-        BoardForm boardForm = BoardForm.builder()
+        BoardRequestForm boardForm = BoardRequestForm.builder()
                 .title("hello everyone")
                 .content("hi! my name is Lee")
                 .build();
@@ -64,7 +64,7 @@ class BoardControllerTest {
     @Test
     @DisplayName("저장 비정상 요청")
     void test2() throws Exception {
-        BoardForm boardForm = BoardForm.builder()
+        BoardRequestForm boardForm = BoardRequestForm.builder()
                 .content("hi! my name is Lee")
                 .build();
 

@@ -1,6 +1,7 @@
 package hello.selfmadeboard.service;
 
-import hello.selfmadeboard.controller.form.BoardForm;
+import hello.selfmadeboard.controller.form.BoardRequestForm;
+import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,15 +14,15 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public void write(BoardForm boardForm) {
+    public void write(BoardRequestForm boardForm) {
         log.info("BoardService : 저장!");
         boardRepository.save(boardForm.toBoard());
     }
 
-    public BoardForm read(Long id) {
+    public BoardResponseForm read(Long id) {
         log.info("BoardService : 읽기!");
         return boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("없는 글 입니다.")).toBoardForm();
+                .orElseThrow(() -> new IllegalArgumentException("없는 글 입니다.")).toBoardResponseForm();
 
     }
 

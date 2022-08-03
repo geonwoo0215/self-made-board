@@ -1,6 +1,7 @@
 package hello.selfmadeboard.service;
 
-import hello.selfmadeboard.controller.form.BoardForm;
+import hello.selfmadeboard.controller.form.BoardRequestForm;
+import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.repository.BoardRepository;
 import org.assertj.core.api.Assertions;
@@ -9,8 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class BoardServiceTest {
@@ -32,7 +31,7 @@ class BoardServiceTest {
     void test1(){
 
         //given
-        BoardForm boardForm = BoardForm.builder()
+        BoardRequestForm boardForm = BoardRequestForm.builder()
                 .title("hello everyone")
                 .content("my name is Lee")
                 .build();
@@ -53,7 +52,7 @@ class BoardServiceTest {
     void test2() {
 
         //given
-        BoardForm boardForm = BoardForm.builder()
+        BoardRequestForm boardForm = BoardRequestForm.builder()
                 .title("hello everyone")
                 .content("my name is Lee")
                 .build();
@@ -61,7 +60,7 @@ class BoardServiceTest {
         //when
         Long saveId = boardRepository.save(boardForm.toBoard()).getId();
         //then
-        BoardForm findBoard = boardService.read(saveId);
+        BoardResponseForm findBoard = boardService.read(saveId);
         Assertions.assertThat(findBoard.getTitle()).isEqualTo("hello everyone");
         Assertions.assertThat(findBoard.getContent()).isEqualTo("my name is Lee");
 

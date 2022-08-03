@@ -1,6 +1,7 @@
 package hello.selfmadeboard.controller;
 
-import hello.selfmadeboard.controller.form.BoardForm;
+import hello.selfmadeboard.controller.form.BoardRequestForm;
+import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +17,13 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/board")
-    public void post(@Valid @RequestBody BoardForm boardForm) {
+    public void post(@Valid @RequestBody BoardRequestForm boardForm) {
         log.info("boardForm={}", boardForm.toString());
         boardService.write(boardForm);
     }
 
     @GetMapping("/board/{boardId}")
-    public BoardForm get(@PathVariable(name = "boardId") Long id) {
+    public BoardResponseForm get(@PathVariable(name = "boardId") Long id) {
         log.info("boardId={}", id);
         return boardService.read(id);
     }

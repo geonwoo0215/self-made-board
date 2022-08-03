@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @ToString
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoardForm {
+public class BoardRequestForm {
 
     @NotBlank
     private String title;
@@ -18,7 +18,7 @@ public class BoardForm {
     private String content;
 
     @Builder
-    public BoardForm(String title, String content) {
+    public BoardRequestForm(String title, String content) {
         this.title = title;
         this.content = content;
     }
