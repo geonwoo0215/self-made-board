@@ -10,18 +10,27 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class BoardControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
     @Autowired
@@ -33,10 +42,23 @@ class BoardControllerTest {
     @Autowired
     private BoardRepository boardRepository;
 
-    @BeforeEach
-    void setUp() {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(new BoardController(boardService)).build();
-    }
+//    @BeforeEach
+//    void setUp() {
+//        this.mockMvc = mockMvc = MockMvcBuilders.standaloneSetup(new BoardController(boardService))
+//                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+//                .setViewResolvers(new ViewResolver() {
+//                    @Override
+//                    public View resolveViewName(String viewName, Locale locale) throws Exception {
+//                        return new MappingJackson2JsonView();
+//                    }
+//                })
+//                .build();
+//    }
+
+
+
+
+
 
     @Test
     @DisplayName("저장 정상요청")
@@ -103,19 +125,16 @@ class BoardControllerTest {
     void test4() throws Exception {
 
         //given
-        Board board1 = Board.builder()
-                .title("title1")
-                .content("content2")
-                .build();
-        boardRepository.save(board1);
+        List<Board> boards = IntStream.range(1, 31)
+                .mapToObj(a-> Board.builder()
+                        .title("제목"+a)
+                        .content("내용"+a)
+                        .build())
+                .collect(Collectors.toList());
+        boardRepository.saveAll(boards);
 
-        Board board2 = Board.builder()
-                .title("title1")
-                .content("content2")
-                .build();
-        boardRepository.save(board2);
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/board"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/board?page=1&sort=id,desc")
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
 

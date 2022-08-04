@@ -10,8 +10,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @SpringBootTest
 class BoardServiceTest {
@@ -73,23 +78,21 @@ class BoardServiceTest {
     void test3() {
 
         //given
-        Board board1 = Board.builder()
-                .title("title1")
-                .content("content1")
-                .build();
+        List<Board> boards = IntStream.range(1, 31)
+                .mapToObj(a-> Board.builder()
+                        .title("제목"+a)
+                        .content("내용"+a)
+                        .build())
+                .collect(Collectors.toList());
+        boardRepository.saveAll(boards);
 
-        Board board2 = Board.builder()
-                .title("title2")
-                .content("content2")
-                .build();
+        Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC,"id");
 
-        Long saveId1 = boardRepository.save(board1).getId();
-        Long saveId2 = boardRepository.save(board2).getId();
+        List<BoardResponseForm> boardResponseForms = boardService.list(pageable);
 
-        List<BoardResponseForm> boards = boardService.list();
-
-        Assertions.assertThat(boards.size()).isEqualTo(2L);
-
+        Assertions.assertThat(boardResponseForms.size()).isEqualTo(5L);
+        Assertions.assertThat("제목30").isEqualTo(boardResponseForms.get(0).getTitle());
+        Assertions.assertThat("제목26").isEqualTo(boardResponseForms.get(4).getTitle());
     }
 
 
