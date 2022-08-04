@@ -6,6 +6,7 @@ import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,9 +31,10 @@ public class BoardService {
 
     }
 
-    public List<BoardResponseForm> list(){
+    public List<BoardResponseForm> list(Pageable pageable){
         log.info("BoardService : 전체 글 조회");
-        return boardRepository.findAll().stream().map(Board::toBoardResponseForm).collect(Collectors.toList());
+
+        return boardRepository.findAll(pageable).stream().map(Board::toBoardResponseForm).collect(Collectors.toList());
     }
 
 
