@@ -5,6 +5,8 @@ import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,7 +32,7 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public List<BoardResponseForm> getList() {
-        return boardService.list();
+    public List<BoardResponseForm> getList(Pageable pageable) {
+        return boardService.list(pageable);
     }
 }
