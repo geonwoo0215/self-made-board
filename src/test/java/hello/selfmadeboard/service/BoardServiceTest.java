@@ -2,6 +2,7 @@ package hello.selfmadeboard.service;
 
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
+import hello.selfmadeboard.controller.form.BoardSearchForm;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.repository.BoardRepository;
 import org.assertj.core.api.Assertions;
@@ -78,21 +79,25 @@ class BoardServiceTest {
     void test3() {
 
         //given
-        List<Board> boards = IntStream.range(1, 31)
+        List<Board> boards = IntStream.range(0, 20)
                 .mapToObj(a-> Board.builder()
                         .title("제목"+a)
                         .content("내용"+a)
                         .build())
                 .collect(Collectors.toList());
+
         boardRepository.saveAll(boards);
 
-        Pageable pageable = PageRequest.of(0, 5, Sort.Direction.DESC,"id");
+        BoardSearchForm boardSearchForm = BoardSearchForm.builder()
+                .page(1)
+                .size(10)
+                .build();
 
-        List<BoardResponseForm> boardResponseForms = boardService.list(pageable);
+        List<BoardResponseForm> boardResponseForms = boardService.list(boardSearchForm);
 
-        Assertions.assertThat(boardResponseForms.size()).isEqualTo(5L);
-        Assertions.assertThat("제목30").isEqualTo(boardResponseForms.get(0).getTitle());
-        Assertions.assertThat("제목26").isEqualTo(boardResponseForms.get(4).getTitle());
+        Assertions.assertThat(boardResponseForms.size()).isEqualTo(10L);
+        Assertions.assertThat("제목19").isEqualTo(boardResponseForms.get(0).getTitle());
+
     }
 
 

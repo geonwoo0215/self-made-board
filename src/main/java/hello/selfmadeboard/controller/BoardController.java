@@ -2,6 +2,7 @@ package hello.selfmadeboard.controller;
 
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
+import hello.selfmadeboard.controller.form.BoardSearchForm;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class BoardController {
     }
 
     @GetMapping("/board")
-    public List<BoardResponseForm> getList(Pageable pageable) {
-        return boardService.list(pageable);
+    public List<BoardResponseForm> getList(@ModelAttribute BoardSearchForm boardSearchForm) {
+        return boardService.list(boardSearchForm);
     }
 }

@@ -2,6 +2,7 @@ package hello.selfmadeboard.service;
 
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
+import hello.selfmadeboard.controller.form.BoardSearchForm;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,10 +32,10 @@ public class BoardService {
 
     }
 
-    public List<BoardResponseForm> list(Pageable pageable){
+    public List<BoardResponseForm> list(BoardSearchForm boardSearchForm){
         log.info("BoardService : 전체 글 조회");
 
-        return boardRepository.findAll(pageable).stream().map(Board::toBoardResponseForm).collect(Collectors.toList());
+        return boardRepository.getList(boardSearchForm).stream().map(Board::toBoardResponseForm).collect(Collectors.toList());
     }
 
 

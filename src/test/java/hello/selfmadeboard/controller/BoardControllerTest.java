@@ -125,7 +125,7 @@ class BoardControllerTest {
     void test4() throws Exception {
 
         //given
-        List<Board> boards = IntStream.range(1, 31)
+        List<Board> boards = IntStream.range(0, 20)
                 .mapToObj(a-> Board.builder()
                         .title("제목"+a)
                         .content("내용"+a)
@@ -133,7 +133,7 @@ class BoardControllerTest {
                 .collect(Collectors.toList());
         boardRepository.saveAll(boards);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/board?page=1&sort=id,desc")
+        mockMvc.perform(MockMvcRequestBuilders.get("/board?page=0&size=10")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
