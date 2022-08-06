@@ -1,6 +1,7 @@
 package hello.selfmadeboard.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hello.selfmadeboard.controller.form.BoardEditForm;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.repository.BoardRepository;
@@ -134,6 +135,52 @@ class BoardControllerTest {
         boardRepository.saveAll(boards);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/board?page=0&size=10")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+
+    }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    void test5() throws Exception {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+
+        boardRepository.save(board);
+
+        BoardEditForm boardEditForm = BoardEditForm.builder()
+                .title("title")
+                .content("changeContent")
+                .build();
+
+        mockMvc.perform(MockMvcRequestBuilders.patch("/board/{boardId}",board.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(boardEditForm)))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+
+    }
+    @Test
+    @DisplayName("글 삭제")
+    void test6() throws Exception {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+
+        boardRepository.save(board);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/board/{boardId}", board.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());

@@ -1,5 +1,6 @@
 package hello.selfmadeboard.service;
 
+import hello.selfmadeboard.controller.form.BoardEditForm;
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.controller.form.BoardSearchForm;
@@ -97,6 +98,76 @@ class BoardServiceTest {
 
         Assertions.assertThat(boardResponseForms.size()).isEqualTo(10L);
         Assertions.assertThat("제목19").isEqualTo(boardResponseForms.get(0).getTitle());
+
+    }
+
+    @Test
+    @DisplayName("글 제목 변경")
+    void test4() {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+
+        boardRepository.save(board);
+
+        BoardEditForm boardEditForm = BoardEditForm.builder()
+                .title("changeTitle")
+                .content("content")
+                .build();
+
+        boardService.edit(board.getId(), boardEditForm);
+
+        boardRepository.findById(board.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + board.getId()));
+
+        Assertions.assertThat("changeTitle").isEqualTo(boardEditForm.getTitle());
+    }
+
+    @Test
+    @DisplayName("글 내용 변경")
+    void test5() {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+
+        boardRepository.save(board);
+
+        BoardEditForm boardEditForm = BoardEditForm.builder()
+                .title("title")
+                .content("changeContent")
+                .build();
+
+        boardService.edit(board.getId(), boardEditForm);
+
+        boardRepository.findById(board.getId())
+                .orElseThrow(() -> new RuntimeException("글이 존재하지 않습니다. id=" + board.getId()));
+
+        Assertions.assertThat("changeContent").isEqualTo(boardEditForm.getContent());
+    }
+
+    @Test
+    @DisplayName("글 삭제")
+    void test6() {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+        boardRepository.save(board);
+
+        //when
+        boardService.delete(board.getId());
+
+        //then
+        Assertions.assertThat(0).isEqualTo(boardRepository.count());
+
 
     }
 
