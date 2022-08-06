@@ -1,5 +1,6 @@
 package hello.selfmadeboard.controller;
 
+import hello.selfmadeboard.controller.form.BoardEditForm;
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.controller.form.BoardSearchForm;
@@ -36,4 +37,15 @@ public class BoardController {
     public List<BoardResponseForm> getList(@ModelAttribute BoardSearchForm boardSearchForm) {
         return boardService.list(boardSearchForm);
     }
+
+    @PatchMapping("/board/{boardId}")
+    public void edit(@PathVariable Long boardId, @RequestBody @Valid BoardEditForm request) {
+        boardService.edit(boardId, request);
+    }
+
+    @DeleteMapping("/board/{boardId}")
+    public void delete(@PathVariable Long boardId) {
+        boardService.delete(boardId);
+    }
+
 }

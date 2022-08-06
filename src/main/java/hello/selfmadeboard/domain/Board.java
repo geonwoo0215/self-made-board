@@ -40,4 +40,15 @@ public class Board {
                 .build();
     }
 
+    public BoardEditor.BoardEditorBuilder toEditor() {
+        return BoardEditor.builder()
+                .title(title)
+                .content(content);
+    }
+
+    public void edit(BoardEditor boardEditor) {
+        this.title = boardEditor.getTitle();
+        this.content = boardEditor.getContent();
+    }
+
 }
