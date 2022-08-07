@@ -1,5 +1,6 @@
 package hello.selfmadeboard.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hello.selfmadeboard.controller.form.BoardEditForm;
 import hello.selfmadeboard.domain.Board;
@@ -43,6 +44,11 @@ class BoardControllerTest {
     @Autowired
     private BoardRepository boardRepository;
 
+    @BeforeEach
+    void clear() {
+        boardRepository.deleteAll();
+    }
+
 //    @BeforeEach
 //    void setUp() {
 //        this.mockMvc = mockMvc = MockMvcBuilders.standaloneSetup(new BoardController(boardService))
@@ -55,10 +61,6 @@ class BoardControllerTest {
 //                })
 //                .build();
 //    }
-
-
-
-
 
 
     @Test
@@ -116,7 +118,7 @@ class BoardControllerTest {
 
 
         //then
-        mockMvc.perform(MockMvcRequestBuilders.get("/board/{boardId}",saveId))
+        mockMvc.perform(MockMvcRequestBuilders.get("/board/{boardId}", saveId))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print());
     }
@@ -127,9 +129,9 @@ class BoardControllerTest {
 
         //given
         List<Board> boards = IntStream.range(0, 20)
-                .mapToObj(a-> Board.builder()
-                        .title("제목"+a)
-                        .content("내용"+a)
+                .mapToObj(a -> Board.builder()
+                        .title("제목" + a)
+                        .content("내용" + a)
                         .build())
                 .collect(Collectors.toList());
         boardRepository.saveAll(boards);
@@ -159,7 +161,7 @@ class BoardControllerTest {
                 .content("changeContent")
                 .build();
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/board/{boardId}",board.getId())
+        mockMvc.perform(MockMvcRequestBuilders.patch("/board/{boardId}", board.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(boardEditForm)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -167,6 +169,7 @@ class BoardControllerTest {
 
 
     }
+
     @Test
     @DisplayName("글 삭제")
     void test6() throws Exception {
@@ -188,4 +191,46 @@ class BoardControllerTest {
 
     }
 
+    @Test
+    @DisplayName("게시글 조회 실패")
+    void test7() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/board/{boardId}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("게시글 수정 실패")
+    void test8() throws Exception {
+        //given
+        BoardEditForm boardEditForm = BoardEditForm.builder()
+                .title("title")
+                .content("changeContent")
+                .build();
+
+        //expected
+        mockMvc.perform(MockMvcRequestBuilders.patch("/board/{boardId}", 1L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(boardEditForm)))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    @DisplayName("제목에 비속어 사용 불가")
+    void test11() throws Exception {
+
+        //given
+        BoardRequestForm boardForm = BoardRequestForm.builder()
+                .title("바보")
+                .content("content")
+                .build();
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/board")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(boardForm)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+    }
 }
