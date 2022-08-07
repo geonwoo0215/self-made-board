@@ -2,6 +2,7 @@ package hello.selfmadeboard.controller.form;
 
 
 import hello.selfmadeboard.domain.Board;
+import hello.selfmadeboard.exception.InvalidRequest;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -30,5 +31,10 @@ public class BoardRequestForm {
                 .build();
     }
 
+    public void validate() {
+        if (this.title.contains("바보")) {
+            throw new InvalidRequest();
+        }
+    }
 
 }

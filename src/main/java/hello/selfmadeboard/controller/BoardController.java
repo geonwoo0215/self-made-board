@@ -4,6 +4,7 @@ import hello.selfmadeboard.controller.form.BoardEditForm;
 import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.controller.form.BoardSearchForm;
+import hello.selfmadeboard.exception.InvalidRequest;
 import hello.selfmadeboard.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,8 @@ public class BoardController {
     @PostMapping("/board")
     public void post(@Valid @RequestBody BoardRequestForm boardForm) {
         log.info("boardForm={}", boardForm.toString());
+
+        boardForm.validate();
         boardService.write(boardForm);
     }
 
