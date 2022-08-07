@@ -5,6 +5,7 @@ import hello.selfmadeboard.controller.form.BoardRequestForm;
 import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.controller.form.BoardSearchForm;
 import hello.selfmadeboard.domain.Board;
+import hello.selfmadeboard.exception.BoardNotFound;
 import hello.selfmadeboard.repository.BoardRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -169,6 +171,56 @@ class BoardServiceTest {
         Assertions.assertThat(0).isEqualTo(boardRepository.count());
 
 
+    }
+
+    @Test
+    @DisplayName("글 읽기 실패")
+    void test7() {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+        boardRepository.save(board);
+
+        //expected
+        Assertions.assertThatThrownBy(() -> boardService.read(board.getId() + 1L)).isInstanceOf(BoardNotFound.class).hasMessage("존재하지 않는 글입니다.");
+    }
+
+    @Test
+    @DisplayName("글 삭제 실패")
+    void test8() {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+        boardRepository.save(board);
+
+        //expected
+        Assertions.assertThatThrownBy(() -> boardService.delete(board.getId() + 1L)).isInstanceOf(BoardNotFound.class).hasMessage("존재하지 않는 글입니다.");
+    }
+
+    @Test
+    @DisplayName("글 수정 실패")
+    void test9() {
+
+        //given
+        Board board = Board.builder()
+                .title("title")
+                .content("content")
+                .build();
+        boardRepository.save(board);
+
+        BoardEditForm boardEditForm = BoardEditForm.builder()
+                .title("changeTitle")
+                .content("changeContent")
+                .build();
+
+        //expected
+        Assertions.assertThatThrownBy(() -> boardService.edit(board.getId() + 1L,boardEditForm)).isInstanceOf(BoardNotFound.class).hasMessage("존재하지 않는 글입니다.");
     }
 
 

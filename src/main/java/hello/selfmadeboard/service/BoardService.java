@@ -6,6 +6,7 @@ import hello.selfmadeboard.controller.form.BoardResponseForm;
 import hello.selfmadeboard.controller.form.BoardSearchForm;
 import hello.selfmadeboard.domain.Board;
 import hello.selfmadeboard.domain.BoardEditor;
+import hello.selfmadeboard.exception.BoardNotFound;
 import hello.selfmadeboard.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +32,7 @@ public class BoardService {
     public BoardResponseForm read(Long id) {
         log.info("BoardService : 읽기!");
         return boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("없는 글 입니다.")).toBoardResponseForm();
+                .orElseThrow(BoardNotFound::new).toBoardResponseForm();
 
     }
 
@@ -44,7 +45,7 @@ public class BoardService {
     @Transactional
     public void edit(Long id, BoardEditForm boardEditForm) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(BoardNotFound::new);
 
         BoardEditor.BoardEditorBuilder boardEditorBuilder = board.toEditor();
 
@@ -59,7 +60,7 @@ public class BoardService {
 
     public void delete(Long id) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 글입니다."));
+                .orElseThrow(BoardNotFound::new);
 
         boardRepository.delete(board);
 
